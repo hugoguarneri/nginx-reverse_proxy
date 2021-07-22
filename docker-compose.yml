@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+
+    tectonic-service1:
+        build:
+            context: ./tectonic-service1
+            dockerfile: Dockerfile
+        expose: 
+            - 80
+
+    tectonic-service2:
+        build:
+            context: ./tectonic-service2
+            dockerfile: Dockerfile
+        expose: 
+            - 80
+
+    tectonic-proxy:
+        build:
+            context: ./tectonic-reverseproxy
+            dockerfile: Dockerfile
+        ports: 
+            - 8080:80
+        depends_on:
+            - tectonic-service1
+            - tectonic-service2
+
+    
